@@ -1,17 +1,4 @@
-// بوت تيليجرام لتحميل فيديوهات تيك توك - نسخة Node.js (JavaScript)
-//
-// المتطلبات قبل التشغيل:
-//   1) تثبيت Node.js (يفضل نسخة 18 أو أحدث)
-//   2) تثبيت الحزم التالية عبر npm:
-//        npm install node-telegram-bot-api
-//   3) تثبيت أداة yt-dlp على الجهاز (ليست حزمة npm، بل برنامج مستقل):
-//        - على لينكس/ماك: pip install yt-dlp   أو   brew install yt-dlp
-//        - على ويندوز: حمّلها من https://github.com/yt-dlp/yt-dlp/releases
-//      يجب أن يكون أمر "yt-dlp" متاحًا في PATH حتى يشتغل الكود.
-//
-// التشغيل:
-//        node بوت_تحميل_من_تيك_توك.js
-
+// بوت تيليجرام لتحميل فيديوهات تيك توك - نسخة Node.js
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
@@ -19,7 +6,7 @@ const { execFile } = require("child_process");
 const TelegramBot = require("node-telegram-bot-api");
 
 // =============================
-//  ضع توكن البوت هنا (من BotFather)
+//  توكن البوت
 // =============================
 const BOT_TOKEN = "8473267630:AAFt02-QzJub4PvlgNKLuQ3EsSkBbJJ-aks";
 
@@ -30,11 +17,7 @@ const USER_AGENT =
   "AppleWebKit/537.36 (KHTML, like Gecko) " +
   "Chrome/120.0.0.0 Safari/537.36";
 
-if (!BOT_TOKEN || BOT_TOKEN === "8473267630:AAFt02-QzJub4PvlgNKLuQ3EsSkBbJJ-aks") {
-  console.log("8473267630:AAFt02-QzJub4PvlgNKLuQ3EsSkBbJJ-aks");
-  process.exit(1);
-}
-
+// تشغيل البوت
 const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 
 console.log("البوت يعمل الآن...");
@@ -99,7 +82,7 @@ function downloadTikTok(url, outDir) {
 bot.on("message", async (msg) => {
   const text = msg.text || "";
 
-  // تجاهل الأوامر (مثل /start) لأنها تُعالج في onText أعلاه
+  // تجاهل الأوامر (مثل /start)
   if (text.startsWith("/")) return;
 
   const match = text.match(TIKTOK_URL_PATTERN);
